@@ -1,5 +1,4 @@
-# 📘 react_supersimpledev
-
+# 📘 React course
 Welcome to my personal learning journal for the **SuperSimpleDev React course**! This repository captures my day-to-day journey through modern React fundamentals, featuring concise summaries, hands-on code, and reflections.
 
 ---
