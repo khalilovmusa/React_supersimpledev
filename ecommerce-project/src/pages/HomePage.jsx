@@ -1,8 +1,22 @@
 import Header from '../components/Header'
-import { products } from '../../starting-code/data/products'
 import './HomePage.css'
+import { useEffect, useState } from 'react'
 
 const HomePage = () => {
+  const [products, setProducts] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/products');
+        const data = await response.json()
+        setProducts(data)
+      } catch(err) {
+        console.error('There is an error ocurred while fetching products!:', err)
+      }
+    }
+    fetchData()
+  }, [])
+
    return(
       <>
       <title>Ecommerce project</title>
