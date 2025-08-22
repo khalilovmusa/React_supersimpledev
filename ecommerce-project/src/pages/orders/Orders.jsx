@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { useState, useEffect, Fragment } from 'react'
-import Header from '../components/Header'
-import './Orders.css'
 import dayjs from 'dayjs'
-import { formatMoney } from '../utils/money'
+import { OrderHeader } from './OrderHeader'
+import Header from '../../components/Header'
+import './Orders.css'
 
 const Orders = ({ cart }) => {
   const [orders, setOrders] = useState([])
@@ -27,24 +27,7 @@ const Orders = ({ cart }) => {
         {orders.map((order) => {
           return(
         <div key={order.id} className="order-container">
-          <div className="order-header">
-            <div className="order-header-left-section">
-              <div className="order-date">
-                <div className="order-header-label">Order Placed:</div>
-                <div>{dayjs(order.orderTimeMs).format('MMMM D')}</div>
-              </div>
-              <div className="order-total">
-                <div className="order-header-label">Total:</div>
-                <div>{formatMoney(order.totalCostCents)}</div>
-              </div>
-            </div>
-
-            <div className="order-header-right-section">
-              <div className="order-header-label">Order ID:</div>
-              <div>{order.id}</div>
-            </div>
-          </div>
-
+          <OrderHeader order={order} />
           <div className="order-details-grid">
             {order.products.map((orderProduct) => {
               return(<Fragment key={orderProduct.product.id}>
