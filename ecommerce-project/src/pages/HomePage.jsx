@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Header from '../components/Header'
 import './HomePage.css'
 import { useEffect, useState } from 'react'
@@ -7,9 +8,8 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/products');
-        const data = await response.json()
-        setProducts(data)
+        const response = await axios.get('http://localhost:3000/api/products');
+        setProducts(response.data)
       } catch(err) {
         console.error('There is an error ocurred while fetching products!:', err)
       }
