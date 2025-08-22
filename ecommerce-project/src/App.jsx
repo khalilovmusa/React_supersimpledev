@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
       const fetchCartData = async () => {
       try {
-        const response = await axios.get('/api/cart-items')
+        const response = await axios.get('/api/cart-items?expand=product') //?=> Query parameter
         setCart(response.data)
       } catch(err) {
         console.error('There is an error ocurred while fetching cart data!:', err)
@@ -23,7 +23,7 @@ function App() {
   return (
     <Routes>
       <Route element={<HomePage cart={cart} />} index />
-      <Route element={<CheckoutPage />} path="/checkout" />
+      <Route element={<CheckoutPage cart={cart} />} path="/checkout" />
       <Route element={<Orders />} path="/orders" />
       <Route element={<Tracking />} path="/tracking" />
     </Routes>
