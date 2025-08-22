@@ -4,12 +4,25 @@ import HomePage from './pages/HomePage'
 import CheckoutPage from './pages/CheckoutPage'
 import Orders from './pages/Orders'
 import Tracking from './pages/Tracking'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function App() {
-
+  const [cart, setCart] = useState([])
+  useEffect(() => {
+      const fetchCartData = async () => {
+      try {
+        const response = await axios.get('/api/cart-items')
+        setCart(response.data)
+      } catch(err) {
+        console.error('There is an error ocurred while fetching cart data!:', err)
+      }
+    }
+    fetchCartData()
+  }, [])
   return (
     <Routes>
-      <Route element={<HomePage />} index />
+      <Route element={<HomePage cart={cart} />} index />
       <Route element={<CheckoutPage />} path="/checkout" />
       <Route element={<Orders />} path="/orders" />
       <Route element={<Tracking />} path="/tracking" />

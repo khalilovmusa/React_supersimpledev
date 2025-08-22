@@ -3,9 +3,9 @@ import Header from '../components/Header'
 import './HomePage.css'
 import { useEffect, useState } from 'react'
 
-const HomePage = () => {
+const HomePage = ({ cart }) => {
   const [products, setProducts] = useState([])
-  const [cart, setCart] = useState([])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -15,16 +15,7 @@ const HomePage = () => {
         console.error('There is an error ocurred while fetching products!:', err)
       }
     }
-    const fetchCartData = async () => {
-      try {
-        const response = await axios.get('/api/cart-items')
-        setCart(response.data)
-      } catch(err) {
-        console.error('There is an error ocurred while fetching cart data!:', err)
-      }
-    }
     fetchData()
-    fetchCartData()
   }, [])
    return(
       <>
