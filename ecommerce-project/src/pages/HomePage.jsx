@@ -9,7 +9,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/products');
+        const response = await axios.get('/api/products');
         setProducts(response.data)
       } catch(err) {
         console.error('There is an error ocurred while fetching products!:', err)
@@ -17,7 +17,7 @@ const HomePage = () => {
     }
     const fetchCartData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/cart-items')
+        const response = await axios.get('/api/cart-items')
         setCart(response.data)
       } catch(err) {
         console.error('There is an error ocurred while fetching cart data!:', err)
