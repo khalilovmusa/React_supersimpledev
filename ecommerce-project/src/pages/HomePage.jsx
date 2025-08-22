@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 
 const HomePage = () => {
   const [products, setProducts] = useState([])
+  const [cart, setCart] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -14,13 +15,21 @@ const HomePage = () => {
         console.error('There is an error ocurred while fetching products!:', err)
       }
     }
+    const fetchCartData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/cart-items')
+        setCart(response.data)
+      } catch(err) {
+        console.error('There is an error ocurred while fetching cart data!:', err)
+      }
+    }
     fetchData()
+    fetchCartData()
   }, [])
-
    return(
       <>
       <title>Ecommerce project</title>
-    <Header />
+    <Header cart={cart} />
     <div className="home-page">
       <div className="products-grid">{
         products.map((product) => {
