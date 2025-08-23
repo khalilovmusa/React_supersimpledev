@@ -15,7 +15,7 @@ const Orders = ({ cart }) => {
     }
     fetchOrders()
   },[])
-   return(
+  return(
       <>
       <title>Orders</title>
       <Header cart={cart} />
@@ -67,7 +67,7 @@ const Orders = ({ cart }) => {
       </div>
     </div>
       </>
-   )
+  )
 }
 
 export default Orders 
