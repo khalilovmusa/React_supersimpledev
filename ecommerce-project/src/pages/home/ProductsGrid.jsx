@@ -1,6 +1,7 @@
 import { formatMoney } from '../../utils/money'
+import axios from 'axios'
 
-export const ProductsGrid = ({ products }) => {
+export const ProductsGrid = ({ products, loadCart }) => {
    return(
    <div className="products-grid">{
       products.map((product) => {
@@ -49,7 +50,14 @@ export const ProductsGrid = ({ products }) => {
          Added
          </div>
 
-         <button className="add-to-cart-button button-primary">
+         <button className="add-to-cart-button button-primary"
+         onClick={async () => {
+            await axios.post('/api/cart-items', {
+               productId: product.id,
+               quantity: 1
+            });
+            await loadCart()
+         }}>
          Add to Cart
          </button>
       </div>
