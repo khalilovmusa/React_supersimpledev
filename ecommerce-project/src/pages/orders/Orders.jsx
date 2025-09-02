@@ -5,8 +5,15 @@ import { OrderHeader } from './OrderHeader'
 import Header from '../../components/Header'
 import './Orders.css'
 
-const Orders = ({ cart }) => {
+const Orders = ({ cart, loadCart }) => {
   const [orders, setOrders] = useState([])
+  const addToCart = async (product) => {
+    await axios.post('/api/cart-items', {
+      productId: product.product.id,
+      quantity: 1
+    })
+    await loadCart()
+  }
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -47,7 +54,10 @@ const Orders = ({ cart }) => {
               </div>
               <button className="buy-again-button button-primary">
                 <img className="buy-again-icon" src="images/icons/buy-again.png" />
-                <span className="buy-again-message">Add to Cart</span>
+                <span 
+                  className="buy-again-message"
+                  onClick={() => addToCart(orderProduct)}
+                  >Add to Cart</span>
               </button>
             </div>
 
