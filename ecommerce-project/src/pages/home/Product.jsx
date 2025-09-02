@@ -1,9 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { formatMoney } from "../../utils/money"
 import axios from "axios"
 
 const Product = ({product, loadCart}) => {
    const [quantity, setQuantity] = useState(1)
+   const [isAdded, setIsAdded] = useState(false)
+   useEffect(() => {
+      if (isAdded) {
+         const addTimeout = setTimeout(() => {
+            setIsAdded(false)
+         }, 2000)
+         return () => clearTimeout(addTimeout)
+      }
+   }, [isAdded])
    const addToCart = async (product, quantity) => {
             await axios.post('/api/cart-items', {
                productId: product.id,
@@ -55,13 +64,16 @@ const Product = ({product, loadCart}) => {
 
          <div className="product-spacer"></div>
 
-         <div className="added-to-cart">
+         <div className="added-to-cart" style={{opacity: isAdded? 1 : 0}}>
          <img src="images/icons/checkmark.png" />
          Added
          </div>
 
          <button className="add-to-cart-button button-primary"
-         onClick={async () => addToCart(product, quantity)}>
+         onClick={async () => {
+            addToCart(product, quantity)
+            setIsAdded(true)
+         }}>
          Add to Cart
          </button>
       </div>
