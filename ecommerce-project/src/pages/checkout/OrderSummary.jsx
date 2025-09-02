@@ -2,7 +2,7 @@ import { formatMoney } from '../../utils/money'
 import { DeliveryDate } from './DeliveryDate'
 import { DeliveryOptions } from './DeliveryOptions'
 
-export const OrderSummary = ({ deliveryOptions, cart }) => {
+export const OrderSummary = ({ deliveryOptions, cart, loadCart }) => {
    return(
             <div className="order-summary">
          {deliveryOptions.length > 0 && cart.map((cartItem) => {
@@ -35,7 +35,7 @@ export const OrderSummary = ({ deliveryOptions, cart }) => {
                   </span>
                </div>
                </div>
-               <DeliveryOptions deliveryOptions={deliveryOptions} cartItem={cartItem} />
+               <DeliveryOptions deliveryOptions={deliveryOptions} cartItem={cartItem} loadCart={loadCart} />
             </div>
          </div>
          )
