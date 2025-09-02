@@ -6,6 +6,7 @@ import Header from '../../components/Header'
 import './Orders.css'
 
 const Orders = ({ cart, loadCart }) => {
+  window.axios = axios //!=> This is for the test of the post method in console: axios.post('/api/reset/')
   const [orders, setOrders] = useState([])
   const addToCart = async (product) => {
     await axios.post('/api/cart-items', {
