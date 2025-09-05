@@ -11,3 +11,4 @@ describe('formatMoney', () => { //!=> test suite
       expect(formatMoney(100)).toBe('$1.00')
    })
 })
+//TODO=> These are called unit tests because this tests are required to only check one part/unit of the code
