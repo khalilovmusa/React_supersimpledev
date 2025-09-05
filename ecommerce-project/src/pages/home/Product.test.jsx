@@ -1,6 +1,10 @@
 import { it, describe, vi, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import axios from 'axios'
 import Product from './Product'
+
+vi.mock('axios') //!=> Changes the axios to the fake version
 
 describe('Product component', () => {
    it('it displays the product details correctly', () => {
@@ -40,5 +44,38 @@ describe('Product component', () => {
       expect(
          screen.getByText('87')
       ).toBeInTheDocument()
+   })
+
+   it('adds a product to the cart', async () => {
+      //!=> Fake product to be passed
+      const product = {
+         id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+         image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+         name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
+         rating: {
+            stars: 4.5,
+            count: 87
+         },
+         priceCents: 1090,
+         keywords: ["socks", "sports", "apparel"]
+      }
+
+      const loadCart = vi.fn() //!=> Mock of the fake function loadCart
+
+      render(<Product product={product} loadCart={loadCart} />)
+
+      const user = userEvent.setup()
+      const addToCartBtn = screen.getByTestId('add-to-cart-btn')
+      await user.click(addToCartBtn)
+
+      expect(axios.post).toHaveBeenCalledWith(
+         '/api/cart-items', 
+         {
+            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+            quantity: 1
+         }
+      )
+
+      expect(loadCart).toHaveBeenCalled()
    })
 })

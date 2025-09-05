@@ -72,6 +72,7 @@ const Product = ({product, loadCart}) => {
          </div>
 
          <button className="add-to-cart-button button-primary"
+         data-testid="add-to-cart-btn"
          onClick={async () => {
             addToCart(product, quantity)
             setIsAdded(true)
