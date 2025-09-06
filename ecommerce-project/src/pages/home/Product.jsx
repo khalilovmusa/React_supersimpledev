@@ -25,7 +25,8 @@ const Product = ({product, loadCart}) => {
             setQuantity(quantitySelected)
          }
    return(
-         <div className="product-container">
+         <div className="product-container"
+         data-testId="product-container">
          <div className="product-image-container">
          <img className="product-image"
                data-testid="product-image"
