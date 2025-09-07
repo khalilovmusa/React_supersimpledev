@@ -70,4 +70,12 @@ describe('Product component', () => {
 
       expect(loadCart).toHaveBeenCalled()
    })
+
+   it('can select a quantity', () => {
+      render(<Product product={product} loadCart={loadCart} />) //!=> Firstly render the element that you want to test
+
+      const quantitySelector = screen.getByTestId('quantity-selector') //!=> Get the element by data-testid and declare it to the variable
+
+      expect(quantitySelector).toHaveValue('1') //TODO=> Write the test you wanted. Check anything
+   })
 })
