@@ -71,11 +71,27 @@ describe('Product component', () => {
       expect(loadCart).toHaveBeenCalled()
    })
 
-   it('can select a quantity', () => {
+   it('can select a quantity', async () => {
       render(<Product product={product} loadCart={loadCart} />) //!=> Firstly render the element that you want to test
-
       const quantitySelector = screen.getByTestId('quantity-selector') //!=> Get the element by data-testid and declare it to the variable
-
       expect(quantitySelector).toHaveValue('1') //TODO=> Write the test you wanted. Check anything
+
+      const user = userEvent.setup()
+      await user.selectOptions(quantitySelector, '3') //TODO=> Change the value of options to 3 and check it again. This is an asynchronous event so we have to await it
+      expect(quantitySelector).toHaveValue('3') //?=> Check the value if its updated
+
+      const addToCartBtn = screen.getByTestId('add-to-cart-btn') //?=> Get the add to cart button and save it in a variable
+      await user.click(addToCartBtn) //TODO=> Click to the add to cart btn
+
+      expect(axios.post).toHaveBeenCalledWith( //TODO=> After clicking the btn check if the button really contacted with the backend and send the data with correct value
+         '/api/cart-items',
+         {
+            productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+            quantity: 3
+         }
+      )
+
+      expect(loadCart).toHaveBeenCalled()
+      
    })
 })
